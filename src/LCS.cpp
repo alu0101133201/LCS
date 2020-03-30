@@ -4,17 +4,10 @@
 
 #include "LCS.hpp"
 
-// Función auxiliar para calcular el máximo
-// int max (int first, int second) {
-//   std::cout << "first: " << first << " second: " << second;
-//   return ((first > second)? first : second);
-// }
-
 LCS::LCS(std::string sequence1, std::string sequence2):
   dinamicTable(sequence1.length(), sequence2.length()),
   firstSequence(sequence1),
   secondSequence(sequence2) {}
-
 
 LCS::~LCS()
 {}
@@ -52,7 +45,6 @@ std::string LCS::getSolution() {
   }
   return(result);
 }
-
 
 std::string LCS::solve() {
   build();

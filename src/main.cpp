@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 
 #include "table.hpp"
 #include "LCS.hpp"
@@ -17,24 +18,55 @@ std::string reverse(std::string sequence) {
   return(result);
 }
 
-int main (int argc, char *argv[]) {
-  if (argc < 3) {
-    std::cerr << "Parámetros suministrados insuficiente\n";
-    std::cerr << "./LCS <cadena> <cadena>\n";
-    return (1);
-  }
-  std::string firstSequence = argv[1];
-  std::string secondSequence = argv[2];
+int main (void) {
+  srand(time(NULL));
+  int option;
+  std::string firstSequence;
+  std::string secondSequence;
+  std::string result;
 
-  // std::cout << "Primera secuencia a estudiar: " << firstSequence << "\n";
-  // std::cout << "Segunda secuencia a estudiar: " << secondSequence  << "\n";
-  // std::cout << "Primera secuencia a estudiar: " << firstSequence.size() << "\n";
-  // std::cout << "Segunda secuencia a estudiar: " << secondSequence.size()  << "\n";
+  do {
+      std::cout << "\n---MENU---\n";
+      std::cout << "1.- Introducción de cadenas manual\n";
+      std::cout << "2.- Generación de cadenas aleatorias\n";
+      std::cout << "0.- Salir\n> ";
+      std::cin >> option;
 
-  LCS prueba(secondSequence, firstSequence);
-  std::cout << reverse(prueba.solve()) << "\n";
-  prueba.write(std::cout);
+    if (option == 1) {
+      std::cout << "Introduzca la primera cadena: ";
+      std::cin >> firstSequence;
+      std::cout << "Introduzca la segunda cadena: ";
+      std::cin >> secondSequence;
 
+      LCS prueba(secondSequence, firstSequence);
+      result = prueba.solve();
+      std::cout <<  "Subcadena más larga: " <<  reverse(result) << "\n";
+    }
+    if (option == 2) {
 
+      int firstLength;
+      int secondLength;
+      std::cout << "Introduzca la lognitud de la primera cadena: ";
+      std::cin >> firstLength;
+      std::cout << "Introduzca la longitud de la segunda cadena: " ;
+      std::cin >> secondLength;
+      std::cout << "\n---CADENAS GENERADAS---\n\n";
+      for (int i = 0; i < firstLength; i++) {
+        char dummy = ('0' + rand() % 10);
+        firstSequence.push_back(dummy);
+        std::cout << dummy;
+      }
+      std::cout << "\n\n";
+      for (int i = 0; i < secondLength; i++) {
+        char dummy = ('0' + rand() % 10);
+        secondSequence.push_back(dummy);
+        std::cout << dummy;
+      }
+      std::cout << "\n";
+      LCS prueba(secondSequence, firstSequence);
+      result = prueba.solve();
+      std::cout << "\nSubcadena más larga: " <<  reverse(result) << "\n";
+    }
+  } while(option != 0);
   return(0);
 }
